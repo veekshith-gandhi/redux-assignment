@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from "react-redux";
+import { AddTodo } from "./components/AddTodo";
+import { LoginPage } from "./components/Login";
+import { Logout } from "./components/Logout";
+import Pagination from "./components/Pagination";
+import ViewTodo from "./components/ViewTodo";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+const App = () => {
+  const { isAuth } = useSelector((state) => state.todo);
+
+  return isAuth ? (
+    <>
+      <AddTodo />
+      <ViewTodo />
+      <Pagination />
+      <Logout />
+    </>
+  ) : (
+    <LoginPage />
   );
-}
-
+};
 export default App;
