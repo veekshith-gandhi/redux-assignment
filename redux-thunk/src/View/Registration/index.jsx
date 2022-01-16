@@ -17,8 +17,6 @@ const Registration = () => {
   const [description, setDescription] = useState("");
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state);
-  console.log(user);
 
   const handleSubmit = () => {
     setData({
@@ -48,6 +46,7 @@ const Registration = () => {
         <TextField
           onChange={(e) => setEmail(e.target.value)}
           type="email"
+          value=""
           label="email"
           variant="outlined"
         />
