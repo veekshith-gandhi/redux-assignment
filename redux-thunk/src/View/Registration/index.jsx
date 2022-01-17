@@ -5,11 +5,14 @@ import Button from "@material-ui/core/Button";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerationAction } from "../../Redux/Actions";
+import { FlashOffRounded } from "@material-ui/icons";
 
 const Registration = () => {
   const [data, setData] = useState([]);
 
   const [name, setName] = useState("");
+  const [nameError, setNameError] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
@@ -19,15 +22,23 @@ const Registration = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    setData({
-      name: name,
-      email: email,
-      password: password,
-      username: userName,
-      number: number,
-      description: description,
-    });
-    registerationAction(data)(dispatch);
+    setNameError(false);
+    if (nameError == "") {
+      setNameError(true);
+    }
+    if (name && email && password && userName && number && description) {
+      setData({
+        name: name,
+        email: email,
+        password: password,
+        username: userName,
+        number: number,
+        description: description,
+      });
+      registerationAction(data)(dispatch);
+    } else {
+      alert("Enter valid field");
+    }
   };
   return (
     <Container
@@ -39,6 +50,7 @@ const Registration = () => {
           onChange={(e) => setName(e.target.value)}
           type="text"
           label="Name"
+          error={nameError}
           variant="outlined"
         />
       </Box>
